@@ -2,6 +2,7 @@ import 'dart:ffi';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:swiggy/ride_booking.dart';
 
 class RidesScreen extends StatelessWidget {
   @override
@@ -110,33 +111,45 @@ class RidesScreen extends StatelessWidget {
                           fontWeight: FontWeight.w800,
                         ),
                       ),
-        
+
                       SizedBox(height: 10),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: const Color(0xFFFEF5F6),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        height: height * 0.05,
-        
-                        child: Row(
-                          children: [
-                            SizedBox(width: 10),
-        
-                            Icon(
-                              Icons.location_on_outlined,
-                              color: Colors.red.shade500,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return RideBooking();
+                              },
                             ),
-                            SizedBox(width: 10),
-                            Text(
-                              "Enter destination",
-                              style: TextStyle(
-                                color: Colors.grey.shade700,
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFEF5F6),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: height * 0.05,
+
+                          child: Row(
+                            children: [
+                              SizedBox(width: 10),
+
+                              Icon(
+                                Icons.location_on_outlined,
+                                color: Colors.red.shade500,
                               ),
-                            ),
-                          ],
+                              SizedBox(width: 10),
+                              Text(
+                                "Enter destination",
+                                style: TextStyle(
+                                  color: Colors.grey.shade700,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -145,7 +158,7 @@ class RidesScreen extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 15, top: 15, bottom: 12),
+              padding: EdgeInsets.only(left: 15, top: 15, bottom: 8),
               child: Text(
                 "Choose your ride",
                 style: TextStyle(
@@ -161,7 +174,7 @@ class RidesScreen extends StatelessWidget {
               itemCount: vehicleList.length,
               itemBuilder: (context, index) {
                 final vehicle = vehicleList[index];
-        
+
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 18,
@@ -179,9 +192,9 @@ class RidesScreen extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 8),
                           child: Image.asset(vehicle.image, height: 70),
                         ),
-        
+
                         const SizedBox(width: 10),
-        
+
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -193,7 +206,7 @@ class RidesScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-        
+
                             Text(
                               vehicle.subtitle,
                               style: TextStyle(
@@ -210,7 +223,7 @@ class RidesScreen extends StatelessWidget {
               },
             ),
             Padding(
-              padding: EdgeInsets.only(left: 15, bottom: 12),
+              padding: EdgeInsets.only(left: 15, bottom: 8),
               child: Text(
                 "Ride Offers",
                 style: TextStyle(
@@ -220,14 +233,14 @@ class RidesScreen extends StatelessWidget {
                 ),
               ),
             ),
-        
+
             ListView.builder(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemCount: RideOffersList.length,
               itemBuilder: (context, index) {
                 final offerRide = RideOffersList[index];
-        
+
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 18,
@@ -236,7 +249,7 @@ class RidesScreen extends StatelessWidget {
                   child: DottedBorder(
                     color: Color(0x80E2132A),
                     strokeWidth: 2,
-                    dashPattern: const [5, 3], // 10px dash, 5px gap
+                    dashPattern: const [4, 3], // 10px dash, 5px gap
                     borderType: BorderType.RRect,
                     radius: const Radius.circular(15),
                     child: Container(
@@ -252,7 +265,7 @@ class RidesScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 18),
                             child: Column(
-                               mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
@@ -262,7 +275,7 @@ class RidesScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                    
+
                                 Text(
                                   offerRide.subtitle,
                                   style: TextStyle(
@@ -281,17 +294,27 @@ class RidesScreen extends StatelessWidget {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    border:Border.all(
-                                      color:Color(0xFFE73C4D),
+                                    border: Border.all(
+                                      color: Color(0xFFE73C4D),
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(50),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(vertical: 3,horizontal: 15),
-                                    child: Text(offerRide.coupen, style: TextStyle(color:Color(0xFFE73C4D),fontSize: 13,fontWeight: FontWeight.w900
-                                    )),
-                                  )),
+                                    padding: EdgeInsets.symmetric(
+                                      vertical: 3,
+                                      horizontal: 15,
+                                    ),
+                                    child: Text(
+                                      offerRide.coupen,
+                                      style: TextStyle(
+                                        color: Color(0xFFE73C4D),
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w900,
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -301,6 +324,156 @@ class RidesScreen extends StatelessWidget {
                   ),
                 );
               },
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 15, bottom: 8),
+              child: Text(
+                "Recent Rides",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: rideDetails.length,
+              itemBuilder: (context, index) {
+                final ride = rideDetails[index];
+                return Padding(
+                  padding: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                  child: Container(
+                    height: height * 0.13,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(width: 1, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 12,
+                                height: 12,
+                                decoration: const BoxDecoration(
+                                  color: Colors.green,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                ride.pickup_address,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Spacer(),
+                              Text(
+                                "₹${ride.ride_fare}",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                ">",
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                width: 12,
+                                height: 12,
+                                decoration: const BoxDecoration(
+                                  color: Colors.red,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                ride.drop_address,
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            ride.day,
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 100, left: 15, right: 15),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey.shade400),
+                  borderRadius: BorderRadius.circular(15),
+                  color: Color(0xFFF9F8F8),
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(15),
+                  child: Row(
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFDCFCE7),
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Icon(
+                              Icons.star_border_rounded,
+                              size: 35,
+                              color: Color(0xFF16A34A),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Safe & Secure Rides",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          Text(
+                            "All drivers verified with live tracking",
+                            style: TextStyle(fontSize: 16, color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -361,5 +534,34 @@ List<RideOffersModel> RideOffersList = [
     coupen: "FREERIDE",
     title: "FREE ride up to \$100",
     subtitle: "Valid for next 24 hours",
+  ),
+];
+
+class RideDetailsModel {
+  final String pickup_address;
+  final String drop_address;
+  final String ride_fare;
+  final String day;
+
+  RideDetailsModel({
+    required this.pickup_address,
+    required this.drop_address,
+    required this.ride_fare,
+    required this.day,
+  });
+}
+
+List<RideDetailsModel> rideDetails = [
+  RideDetailsModel(
+    pickup_address: "MGR central railway station",
+    drop_address: "Dubai Cross Street",
+    ride_fare: "200",
+    day: "yesterday",
+  ),
+  RideDetailsModel(
+    pickup_address: "kilpauk,chennai",
+    drop_address: "chepauk,triplicane",
+    ride_fare: "120",
+    day: "2 days ago",
   ),
 ];
