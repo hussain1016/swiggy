@@ -34,6 +34,9 @@ class RidesScreen extends StatelessWidget {
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w700,
+                    fontSize: 18, // 1.125rem = 18px
+                    height: 1.50, // 28px / 18px = 1.56
+                    letterSpacing: -0.45, // -0.025 × 18px
                   ),
                 ),
                 Padding(
@@ -43,11 +46,13 @@ class RidesScreen extends StatelessWidget {
                     children: [
                       Icon(Icons.location_on_outlined, color: Colors.red),
                       Text(
-                        "Location Unavailable",
+                        "Select your location",
                         style: TextStyle(
-                          color: Colors.grey.shade400,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
+                          color: Colors
+                              .white70, // Replace with your actual accent-foreground color at 70% opacity
+                          fontSize: 12, // 0.75rem = 12px
+                          fontWeight: FontWeight.w500,
+                          height: 1.33, // 16px / 12px
                         ),
                       ),
                       Icon(
